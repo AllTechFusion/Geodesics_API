@@ -9,22 +9,45 @@ app.use(cors());
 const port = 3000;
 
 const User = dbConnect.collection("geodesics");
-const geodesicsArray = dbConnect.collection("geodesicsArray");
+// const geodesicsArray = dbConnect.collection("geodesicsArray");
+const geodesicsBasicDetails = dbConnect.collection("geodesicsBasicDetails");
 
 
 
-//Appointment Page
+app.get('/geBasicDetails', async (req, res) => {
 
+    const snapshot = await geodesicsBasicDetails.get();
+   // console.log(list[0].appointmentTime)
+    const list = snapshot.docs.map((doc) => ({ id: doc.id, data:doc.data() }));
+    // console.log(list[0].appointmentTime)
+ res.send(list[0]);
+
+});
 
 app.get('/getData', async (req, res) => {
 
-        const snapshot = await geodesicsArray.get();
+        const snapshot = await User.get();
        // console.log(list[0].appointmentTime)
         const list = snapshot.docs.map((doc) => ({ id: doc.id, data:doc.data() }));
         // console.log(list[0].appointmentTime)
      res.send(list);
 
  });
+
+ app.post('/postData', async (req, res) => {
+const array=[1,5,60,0.6,0.78,777]
+let webData=req.body
+//console.log(webData)
+// const usersRef = ref.child('users');
+await User.doc(webData.name).set({data:webData.data});
+
+//     const snapshot = await geodesicsArray.get();
+//    // console.log(list[0].appointmentTime)
+//     const list = snapshot.docs.map((doc) => ({ id: doc.id, data:doc.data() }));
+//     // console.log(list[0].appointmentTime)
+ res.send("success");
+
+});
 
 
  
