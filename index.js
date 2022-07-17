@@ -45,7 +45,7 @@ await User.doc(webData.name).set({data:webData.data});
 //    // console.log(list[0].appointmentTime)
 //     const list = snapshot.docs.map((doc) => ({ id: doc.id, data:doc.data() }));
 //     // console.log(list[0].appointmentTime)
- res.send("success");
+ res.send({ title: 'Success' });
 
 });
 
